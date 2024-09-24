@@ -1,1 +1,125 @@
 /* You can add global styles to this file, and also import other style files */
+/* styles.css (global styles) */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+input[type="text"], input[type="date"], textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* notification-list.component.css */
+.notification-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notification-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.notification-form {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+/* performance-metrics.component.css */
+.performance-controls {
+  margin-bottom: 20px;
+}
+
+.performance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.performance-table th, .performance-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.performance-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.performance-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* user-journey-stepper.component.css */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+}
+
+.step.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.step.completed {
+  background-color: #45a049;
+  color: white;
+}
+
+.step-content {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.step-navigation {
+  margin-top: 20px;
+  text-align: center;
+}

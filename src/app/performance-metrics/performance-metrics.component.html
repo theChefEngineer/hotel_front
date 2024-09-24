@@ -1,0 +1,33 @@
+<div class="container-fluid mt-4">
+  <h2 class="mb-4">Performance Metrics</h2>
+
+  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show" role="alert">
+    {{ alert.message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="closeAlert()"></button>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Generate or Load Metrics</h5>
+      <div class="mb-3">
+        <button class="btn btn-primary me-2" (click)="generateMetrics()">Generate Metrics</button>
+      </div>
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <label for="startDate" class="col-form-label">Start Date:</label>
+        </div>
+        <div class="col-auto">
+          <input type="date" id="startDate" class="form-control" [(ngModel)]="startDate" name="startDate">
+        </div>
+        <div class="col-auto">
+          <label for="endDate" class="col-form-label">End Date:</label>
+        </div>
+        <div class="col-auto">
+          <input type="date" id="endDate" class="form-control" [(ngModel)]="endDate" name="endDate">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

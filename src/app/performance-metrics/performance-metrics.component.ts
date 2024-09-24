@@ -1,32 +1,27 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {NotificationListComponent} from './notification-list/notification-list.component';
-import {PerformanceMetricsComponent} from './performance-metrics/performance-metrics.component';
-import {PerformanceService} from './services/performance/performance.service';
+import {PerformanceService} from '../services/performance/performance.service';
+import {PerformanceMetric} from '../modal/PerformanceMetric';
+import {Alert} from "../modal/Alert";
 
-
-import {PerformanceMetric} from "./modal/PerformanceMetric";
-import {Alert} from "./modal/Alert";
-import {Notification} from "./modal/Notification";
-import {NotificationService} from "./services/notifications/notification.service";
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-performance-metrics',
   standalone: true,
-  imports: [CommonModule, NotificationListComponent, PerformanceMetricsComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  imports: [CommonModule, FormsModule],
+  templateUrl: './performance-metrics.component.html',
+  styleUrls: ['./performance-metrics.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  metrics: PerformanceMetric[] = [];
-  notifications: Notification[] = [];
+export class PerformanceMetricsComponent implements OnInit, OnDestroy {
   startDate: string = '';
   endDate: string = '';
+  metrics: PerformanceMetric[] = [];
   alert: Alert | null = null;
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private performanceService: PerformanceService, private notificationService: NotificationService) {
+  constructor(private performanceService: PerformanceService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +53,23 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Generates new performance metrics.
+   */
+  generateMetrics(): void {
+    const sub = this.performanceService.generatePerformanceMetrics().subscribe({
+      next: () => {
+        this.showAlert('success', 'Performance metrics generated successfully');
+        this.loadMetrics();
+      },
+      error: (error: any) => {
+        console.error('Error generating metrics:', error);
+        this.showAlert('danger', 'Error generating metrics. Please try again.');
+      }
+    });
+    this.subscriptions.add(sub);
+  }
+
+  /**
    * Loads performance metrics for the selected date range.
    */
   loadMetrics(): void {
@@ -69,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
             this.showAlert('info', 'No metrics found for the selected date range.');
           }
         },
-        error: (error: unknown) => {
+        error: (error: any) => {
           console.error('Error loading metrics:', error);
           this.showAlert('danger', 'Error loading metrics. Please try again.');
         }
@@ -95,16 +107,5 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   closeAlert(): void {
     this.alert = null;
-  }
-
-  /**
-   * Loads all notifications from the service.
-   */
-  loadNotifications(): void {
-    const sub = this.notificationService.getNotifications().subscribe({
-      next: (data: Notification[]) => this.notifications = data,
-      error: (error: any) => console.error('Error loading notifications:', error)
-    });
-    this.subscriptions.add(sub);
   }
 }

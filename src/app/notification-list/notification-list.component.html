@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Notifications</h5>
+    <ul class="list-group mb-3">
+      <li *ngFor="let notification of notifications"
+          class="list-group-item d-flex justify-content-between align-items-center">
+        {{ notification.name }} - {{ notification.message }}
+        <div>
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="editNotification(notification)">Edit</button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteNotification(notification)">Delete</button>
+        </div>
+      </li>
+    </ul>
+    <form (ngSubmit)="submitNotification()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input id="name" [(ngModel)]="currentNotification.name" name="name" required maxlength="50"
+               class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message:</label>
+        <textarea id="message" [(ngModel)]="currentNotification.message" name="message" required maxlength="1000"
+                  class="form-control"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Create' }}</button>
+      <button *ngIf="isEditing" type="button" (click)="cancelEdit()" class="btn btn-secondary ms-2">Cancel</button>
+    </form>
+  </div>
+</div>
